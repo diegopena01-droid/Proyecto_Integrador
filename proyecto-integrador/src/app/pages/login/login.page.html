@@ -1,1 +1,85 @@
-<p>login works!</p>
+<div class="login-container">
+
+  <div class="login-card">
+
+    <div class="text-center mb-4">
+      <i class="bi bi-calendar-event login-icon"></i>
+
+      <h1 class="login-title">
+        Proyecto Integrador
+      </h1>
+
+      <p class="text-muted">
+        Sistema de gestión de eventos
+      </p>
+    </div>
+
+    <h2 class="text-center mb-4">
+      Iniciar sesión
+    </h2>
+
+    <form>
+
+      <div class="mb-3">
+        <label for="email" class="form-label">
+          Correo electrónico
+        </label>
+
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-envelope"></i>
+          </span>
+
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            placeholder="Ingrese su correo"
+          >
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">
+          Contraseña
+        </label>
+
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-lock"></i>
+          </span>
+
+          <input
+            type="password"
+            id="password"
+            class="form-control"
+            placeholder="Ingrese su contraseña"
+          >
+        </div>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button
+          type="submit"
+          class="btn btn-primary">
+          <i class="bi bi-box-arrow-in-right me-2"></i>
+          Iniciar sesión
+        </button>
+      </div>
+
+    </form>
+
+    <div class="text-center mt-4">
+
+      <p class="mb-0">
+        ¿No tienes una cuenta?
+        <a routerLink="/register">
+          Regístrate aquí
+        </a>
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
