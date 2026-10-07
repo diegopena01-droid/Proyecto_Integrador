@@ -1,1 +1,163 @@
-<p>client works!</p>
+<div class="client-container">
+
+  <div class="container py-4">
+
+    <div class="mb-4">
+      <h1 class="client-title">
+        Bienvenido al sistema de eventos
+      </h1>
+
+      <p class="text-muted">
+        Consulta eventos, realiza reservas y revisa el estado de tus reservas.
+      </p>
+    </div>
+
+    <div class="row g-4 mb-4">
+
+      <div class="col-md-6">
+
+        <div class="card client-info-card h-100">
+
+          <div class="card-body">
+
+            <div class="d-flex align-items-center">
+
+              <div class="client-info-icon">
+                <i class="bi bi-star-fill"></i>
+              </div>
+
+              <div class="ms-3">
+
+                <h5 class="card-title mb-1">
+                  Mis puntos
+                </h5>
+
+                <p class="card-text">
+                  Tienes
+                  <strong>250 puntos</strong>
+                  acumulados.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="col-md-6">
+
+        <div class="card client-info-card h-100">
+
+          <div class="card-body">
+
+            <div class="d-flex align-items-center">
+
+              <div class="client-info-icon">
+                <i class="bi bi-megaphone-fill"></i>
+              </div>
+
+              <div class="ms-3">
+
+                <h5 class="card-title mb-1">
+                  Publicidad
+                </h5>
+
+                <p class="card-text">
+                  Descubre eventos y promociones disponibles.
+                </p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="card shadow-sm">
+
+      <div class="card-body">
+
+        <h2 class="h4 mb-4">
+          ¿Qué deseas hacer?
+        </h2>
+
+        <div class="row g-3">
+
+          <div class="col-md-6">
+
+            <div class="client-action">
+
+              <i class="bi bi-calendar-event"></i>
+
+              <div class="ms-3">
+
+                <h5>
+                  Eventos disponibles
+                </h5>
+
+                <p class="text-muted mb-2">
+                  Visualiza todos los eventos disponibles.
+                </p>
+
+                <a
+                  routerLink="/client/events"
+                  class="btn btn-primary">
+
+                  Ver eventos
+
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <div class="client-action">
+
+              <i class="bi bi-bookmark-check"></i>
+
+              <div class="ms-3">
+
+                <h5>
+                  Mis reservas
+                </h5>
+
+                <p class="text-muted mb-2">
+                  Consulta tus reservas y su estado actual.
+                </p>
+
+                <a
+                  routerLink="/client/reservations"
+                  class="btn btn-outline-primary">
+
+                  Ver mis reservas
+
+                </a>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
