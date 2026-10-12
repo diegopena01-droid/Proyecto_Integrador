@@ -1,1 +1,133 @@
-<p>client-events works!</p>
+
+<div class="events-container">
+  <div class="container py-4">
+
+    <!-- Encabezado -->
+    <div class="events-header mb-4">
+      <div>
+        <h1 class="events-title">Eventos disponibles</h1>
+        <p class="text-muted mb-0">
+          Encuentra tu próximo espectáculo y reserva tus entradas.
+        </p>
+      </div>
+
+      <span class="badge text-bg-primary events-counter">
+        {{ eventos.length }} eventos
+      </span>
+    </div>
+
+    <!-- Buscador visual -->
+    <div class="search-panel mb-4">
+      <i class="bi bi-search"></i>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Busca eventos, teatros o ciudades..."
+        aria-label="Buscar eventos"
+        disabled
+      >
+    </div>
+
+    <!-- Cuadrícula de eventos -->
+    <div class="row g-4">
+
+      @for (evento of eventos; track evento.codigo) {
+        <div class="col-12 col-sm-6 col-lg-4">
+
+          <div class="card event-card h-100">
+
+            <!-- Imagen ilustrativa -->
+            <div class="event-image">
+              <i class="bi bi-calendar-event"></i>
+              <span>Evento {{ evento.codigo }}</span>
+            </div>
+
+            <div class="card-body d-flex flex-column">
+
+              <div class="d-flex justify-content-between
+                          align-items-start gap-2 mb-2">
+                <span class="event-code">
+                  Código: {{ evento.codigo }}
+                </span>
+
+                <span
+                  class="badge"
+                  [class.text-bg-success]="evento.estado === 'Programado'"
+                  [class.text-bg-warning]="evento.estado === 'En Boletería'"
+                  [class.text-bg-danger]="evento.estado === 'Cancelado'"
+                  [class.text-bg-secondary]="evento.estado === 'Finalizado'"
+                  [class.text-bg-info]="evento.estado === 'En Vivo'">
+                  {{ evento.estado }}
+                </span>
+              </div>
+
+              <h2 class="event-name">
+                {{ evento.nombre }}
+              </h2>
+
+              <p class="event-description">
+                {{ evento.descripcion }}
+              </p>
+
+              <div class="event-details">
+
+                <p>
+                  <i class="bi bi-geo-alt"></i>
+                  {{ evento.teatro }}, {{ evento.ciudad }}
+                </p>
+
+                <p>
+                  <i class="bi bi-calendar3"></i>
+                  {{ evento.fechaInicio }}
+                </p>
+
+                <p>
+                  <i class="bi bi-clock"></i>
+                  {{ evento.horaInicio }} – {{ evento.horaFin }}
+                </p>
+
+                <p>
+                  <i class="bi bi-people"></i>
+                  Capacidad: {{ evento.capacidad }} espectadores
+                </p>
+
+              </div>
+
+              <div class="event-price mt-auto">
+                <span>Precio base</span>
+                <strong>{{ evento.precioTexto }}</strong>
+              </div>
+
+              <button
+                type="button"
+                class="btn btn-primary w-100 mt-3"
+                [disabled]="evento.estado !== 'Programado'"
+                [routerLink]="['/client/create-reservation']"
+                [queryParams]="{ eventoId: evento.codigo }">
+
+                <i class="bi bi-bookmark-plus me-2"></i>
+
+                {{
+                  evento.estado === 'Programado'
+                    ? 'Reservar'
+                    : 'No disponible'
+                }}
+
+              </button>
+
+            </div>
+          </div>
+
+        </div>
+      } @empty {
+        <div class="col-12">
+          <div class="alert alert-info">
+            No hay eventos disponibles en este momento.
+          </div>
+        </div>
+      }
+
+    </div>
+
+  </div>
+</div>
