@@ -1,0 +1,159 @@
+
+.create-reservation-container {
+  min-height: calc(100vh - 72px);
+  background-color: #f8f9fa;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.page-title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.reservation-form-card,
+.reservation-summary-card {
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.06);
+}
+
+.reservation-form-card .card-header,
+.reservation-summary-card .card-header {
+  padding: 1.25rem;
+  background-color: white;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.reservation-form-card .card-body,
+.reservation-summary-card .card-body {
+  padding: 1.5rem;
+}
+
+.form-label {
+  font-weight: 500;
+}
+
+.form-control,
+.form-select {
+  padding: 0.7rem 0.85rem;
+}
+
+.reservation-note {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: #e7f1ff;
+  color: #084298;
+  font-size: 0.9rem;
+}
+
+.summary-image {
+  min-height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 10px;
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.summary-image i {
+  font-size: 3rem;
+}
+
+.summary-image span {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.summary-event-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+}
+
+.summary-detail {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.summary-detail > i {
+  color: #0d6efd;
+  font-size: 1.15rem;
+}
+
+.summary-detail small {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: #6c757d;
+}
+
+.summary-detail p {
+  margin-bottom: 0;
+  overflow-wrap: anywhere;
+}
+
+.price-row,
+.total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.price-row span {
+  color: #6c757d;
+}
+
+.price-row strong,
+.total-row strong {
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.total-row {
+  padding-top: 1rem;
+  border-top: 1px solid #dee2e6;
+  font-size: 1.1rem;
+}
+
+.total-row strong {
+  color: #0d6efd;
+  font-size: 1.3rem;
+}
+
+.empty-summary > i {
+  font-size: 3rem;
+  color: #6c757d;
+}
+
+@media (max-width: 576px) {
+  .page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .page-title {
+    font-size: 1.65rem;
+  }
+
+  .reservation-form-card .card-body,
+  .reservation-summary-card .card-body {
+    padding: 1rem;
+  }
+
+  .page-header .btn {
+    width: 100%;
+  }
+}
