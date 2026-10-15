@@ -1,1 +1,171 @@
-<p>client-reservations works!</p>
+
+<div class="reservations-container">
+  <div class="container py-4">
+
+    <!-- Encabezado -->
+    <div class="reservations-header mb-4">
+      <div>
+        <h1 class="reservations-title">Mis reservas</h1>
+        <p class="text-muted mb-0">
+          Consulta tus reservas, los detalles y su estado actual.
+        </p>
+      </div>
+
+      <a
+        routerLink="/client/events"
+        class="btn btn-primary">
+
+        <i class="bi bi-calendar-plus me-2"></i>
+        Explorar eventos
+      </a>
+    </div>
+
+    <!-- Resumen -->
+    <div class="row g-3 mb-4">
+
+      <div class="col-12 col-sm-4">
+        <div class="card summary-card h-100">
+          <div class="card-body">
+            <div class="summary-icon">
+              <i class="bi bi-ticket-perforated"></i>
+            </div>
+            <p class="summary-label">Total de reservas</p>
+            <h2>{{ reservas.length }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-4">
+        <div class="card summary-card h-100">
+          <div class="card-body">
+            <div class="summary-icon">
+              <i class="bi bi-check-circle"></i>
+            </div>
+            <p class="summary-label">Confirmadas</p>
+            <h2>{{ contarPorEstado('Confirmada') }}</h2>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-sm-4">
+        <div class="card summary-card h-100">
+          <div class="card-body">
+            <div class="summary-icon">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <p class="summary-label">Reservadas</p>
+            <h2>{{ contarPorEstado('Reservada') }}</h2>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Tabla de reservas -->
+    <div class="card reservations-card">
+
+      <div class="card-header">
+        <h2 class="h5 mb-1">Historial de reservas</h2>
+        <p class="text-muted mb-0 small">
+          Aquí puedes consultar los detalles de cada reserva.
+        </p>
+      </div>
+
+      <div class="card-body">
+
+        @if (reservas.length > 0) {
+
+          <div class="table-responsive">
+            <table class="table table-hover align-middle">
+
+              <thead>
+                <tr>
+                  <th scope="col">Reserva</th>
+                  <th scope="col">Evento</th>
+                  <th scope="col">Fecha de reserva</th>
+                  <th scope="col">Entradas</th>
+                  <th scope="col">Valor total</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Observaciones</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                @for (reserva of reservas; track reserva.id) {
+                  <tr>
+
+                    <td>
+                      <span class="reservation-id">
+                        {{ reserva.id }}
+                      </span>
+                    </td>
+
+                    <td>
+                      <div class="event-name">
+                        {{ reserva.evento }}
+                      </div>
+                      <small class="text-muted">
+                        Código: {{ reserva.codigoEvento }}
+                      </small>
+                    </td>
+
+                    <td>
+                      <div>{{ reserva.fecha }}</div>
+                      <small class="text-muted">
+                        {{ reserva.hora }}
+                      </small>
+                    </td>
+
+                    <td>{{ reserva.numeroEntradas }}</td>
+
+                    <td class="reservation-price">
+                      {{ reserva.valorTotal | currency:'COP':'symbol-narrow':'1.0-0' }}
+                    </td>
+
+                    <td>
+                      <span
+                        class="badge status-badge"
+                        [class.text-bg-warning]="reserva.estado === 'Reservada'"
+                        [class.text-bg-success]="reserva.estado === 'Confirmada'"
+                        [class.text-bg-danger]="reserva.estado === 'Cancelada'">
+
+                        {{ reserva.estado }}
+
+                      </span>
+                    </td>
+
+                    <td class="observations">
+                      {{ reserva.observaciones || 'Sin observaciones' }}
+                    </td>
+
+                  </tr>
+                }
+              </tbody>
+
+            </table>
+          </div>
+
+        } @else {
+
+          <div class="empty-reservations text-center py-5">
+            <i class="bi bi-ticket-perforated"></i>
+
+            <h3 class="h5 mt-3">Todavía no tienes reservas</h3>
+
+            <p class="text-muted">
+              Explora los eventos disponibles y realiza tu primera reserva.
+            </p>
+
+            <a routerLink="/client/events" class="btn btn-primary">
+              Ver eventos
+            </a>
+          </div>
+
+        }
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
