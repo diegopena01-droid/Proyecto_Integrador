@@ -21,6 +21,7 @@ interface EventoVista {
   capacidad: number;
   precioTexto: string;
   estado: EstadoEvento;
+  imagen: string;
 }
 
 @Component({
@@ -43,7 +44,8 @@ export class ClientEventsPage {
       horaFin: '22:00',
       capacidad: 500,
       precioTexto: '$80.000 COP',
-      estado: 'Programado'
+      estado: 'Programado',
+      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrMLiXncPC_faDwaHx5GP1D3QYeP-SxRSmqvwigFf_aA&s=10'
     },
     {
       codigo: 'EV002',
@@ -56,7 +58,9 @@ export class ClientEventsPage {
       horaFin: '23:00',
       capacidad: 1200,
       precioTexto: '$120.000 COP',
-      estado: 'Programado'
+      estado: 'Programado',
+      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVwCzKfOWxF4n3SNuNbimUY8x-NnGW58h6H5nvaABL5w&s=10'
+      
     },
     {
       codigo: 'EV003',
@@ -69,7 +73,8 @@ export class ClientEventsPage {
       horaFin: '20:00',
       capacidad: 300,
       precioTexto: '$45.000 COP',
-      estado: 'Programado'
+      estado: 'Programado',
+      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWG4va_dysPAIyvWmlki4Jl7gvPWtV64KIs23Wp5vEaQ&s=10'
     },
     {
       codigo: 'EV004',
@@ -82,7 +87,8 @@ export class ClientEventsPage {
       horaFin: '21:00',
       capacidad: 800,
       precioTexto: '$35.000 COP',
-      estado: 'En Boletería'
+      estado: 'En Boletería',
+      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoNbU791LsjYgcJwmE_qOtbX2RiLhcbwqY91quutAjbw&s=10'
     },
     {
       codigo: 'EV005',
@@ -95,7 +101,8 @@ export class ClientEventsPage {
       horaFin: '22:00',
       capacidad: 400,
       precioTexto: '$60.000 COP',
-      estado: 'Programado'
+      estado: 'Programado',
+      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP5oYyjpzqaoXGLg0BYl2tRJG2328Pf3gGQt3w9Jr8iA&s=10'
     },
     {
       codigo: 'EV006',
@@ -108,7 +115,8 @@ export class ClientEventsPage {
       horaFin: '21:00',
       capacidad: 250,
       precioTexto: '$55.000 COP',
-      estado: 'Cancelado'
+      estado: 'Cancelado',
+      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3a9xZTydX0OoPeHSW8LrwwjS8WcLpje_Aa_IkzJEvHA&s=10'
     }
   ];
 }

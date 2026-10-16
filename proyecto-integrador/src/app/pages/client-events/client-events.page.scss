@@ -156,3 +156,57 @@
     transition: none;
   }
 }
+
+.event-card {
+  border: none;
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: #ffffff;
+  box-shadow: 0 3px 12px rgba(63, 40, 111, 0.09);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 7px 20px rgba(63, 40, 111, 0.16);
+}
+
+.event-image {
+  display: block;
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  background-color: #f0eafd;
+}
+
+.event-card .card-body {
+  padding: 1.25rem;
+}
+
+.event-card .card-title {
+  color: #3f286f;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.event-price {
+  color: #6f42c1;
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+@media (max-width: 576px) {
+  .event-image {
+    height: 190px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .event-card {
+    transition: none;
+  }
+
+  .event-card:hover {
+    transform: none;
+  }
+}

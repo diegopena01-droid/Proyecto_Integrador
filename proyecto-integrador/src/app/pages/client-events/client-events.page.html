@@ -2,7 +2,6 @@
 <div class="events-container">
   <div class="container py-4">
 
-    <!-- Encabezado -->
     <div class="events-header mb-4">
       <div>
         <h1 class="events-title">Eventos disponibles</h1>
@@ -16,7 +15,6 @@
       </span>
     </div>
 
-    <!-- Buscador visual -->
     <div class="search-panel mb-4">
       <i class="bi bi-search"></i>
       <input
@@ -28,19 +26,12 @@
       >
     </div>
 
-    <!-- Cuadrícula de eventos -->
     <div class="row g-4">
 
       @for (evento of eventos; track evento.codigo) {
         <div class="col-12 col-sm-6 col-lg-4">
 
           <div class="card event-card h-100">
-
-            <!-- Imagen ilustrativa -->
-            <div class="event-image">
-              <i class="bi bi-calendar-event"></i>
-              <span>Evento {{ evento.codigo }}</span>
-            </div>
 
             <div class="card-body d-flex flex-column">
 
@@ -60,6 +51,12 @@
                   {{ evento.estado }}
                 </span>
               </div>
+
+              <img
+                [src]="evento.imagen"
+                [alt]="'Imagen de ' + evento.nombre"
+                class="event-image"
+                loading="lazy">
 
               <h2 class="event-name">
                 {{ evento.nombre }}
