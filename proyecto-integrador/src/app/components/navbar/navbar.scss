@@ -1,10 +1,14 @@
 
+
 .navbar {
   padding: 0.75rem 0;
+  background-color: #3f286f !important;
 }
 
 .navbar-brand {
+  color: #ffffff;
   font-size: 1.15rem;
+  font-weight: 600;
   white-space: nowrap;
 }
 
@@ -17,14 +21,14 @@
   align-items: center;
   padding: 0.65rem 0.8rem;
   border-radius: 7px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(255, 255, 255, 0.92);
   white-space: nowrap;
   transition: background-color 0.2s ease;
 }
 
 .navbar .nav-link:hover,
 .navbar .nav-link.active {
-  color: #fff;
+  color: #ffffff;
   background-color: rgba(255, 255, 255, 0.16);
 }
 
@@ -34,7 +38,7 @@
 
 .user-role {
   font-size: 0.85rem;
-  color: #fff !important;
+  color: #ffffff !important;
   border: 1px solid rgba(255, 255, 255, 0.45);
   justify-content: center;
   padding: 0.35rem 0.65rem !important;
@@ -68,5 +72,48 @@
 @media (prefers-reduced-motion: reduce) {
   .navbar .nav-link {
     transition: none;
+  }
+}
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-right: 1.5rem;
+  padding: 0;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.brand-text {
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+.navbar-brand:hover .brand-text {
+  color: #e0d5f7;
+}
+
+@media (max-width: 991.98px) {
+  .navbar-brand {
+    margin-right: 0.5rem;
+  }
+
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-text {
+    font-size: 1.15rem;
   }
 }

@@ -1,13 +1,18 @@
 
 <nav class="navbar navbar-expand-lg bg-primary navbar-dark">
   <div class="container">
+   
+      
+<a class="navbar-brand" routerLink="/client">
+  <img
+    src="images/calendario.png"
+    alt="Logo de Eventia"
+    class="brand-logo">
 
-    <!-- Nombre del proyecto: se conserva -->
-    <a class="navbar-brand fw-semibold" routerLink="/client">
-      Proyecto Integrador
-    </a>
+  <span class="brand-text">CheckEvent</span>
 
-    <!-- Botón para móviles -->
+</a>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -22,7 +27,6 @@
 
     <div class="collapse navbar-collapse" id="navbarPrincipal">
 
-      <!-- Navegación del cliente -->
       <ul class="navbar-nav ms-auto align-items-lg-center">
 
         <li class="nav-item">
@@ -48,7 +52,6 @@
           </a>
         </li>
 
-        <!-- Información del usuario -->
         <li class="nav-item">
           <span class="nav-link user-info">
             <i class="bi bi-person-circle me-1"></i>
@@ -62,7 +65,6 @@
           </span>
         </li>
 
-        <!-- Cerrar sesión -->
         <li class="nav-item ms-lg-2">
           <a class="nav-link logout-link" routerLink="/login">
             <i class="bi bi-box-arrow-right me-1"></i>

@@ -1,1 +1,166 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --app-purple-dark: #3f286f;
+  --app-purple: #6f42c1;
+  --app-purple-hover: #59359c;
+  --app-purple-light: #f0eafd;
+  --app-purple-border: #cbb9ed;
+  --app-page-background: #f8f6fc;
+  --app-text: #292333;
+
+  --bs-primary: #6f42c1;
+  --bs-primary-rgb: 111, 66, 193;
+  --bs-link-color: #6f42c1;
+  --bs-link-hover-color: #59359c;
+}
+
+
+body {
+  background-color: var(--app-page-background);
+  color: var(--app-text);
+}
+
+
+.navbar.bg-primary {
+  background-color: var(--app-purple-dark) !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .nav-link.active {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+
+.btn-primary {
+  --bs-btn-bg: var(--app-purple);
+  --bs-btn-border-color: var(--app-purple);
+  --bs-btn-hover-bg: var(--app-purple-hover);
+  --bs-btn-hover-border-color: var(--app-purple-hover);
+  --bs-btn-active-bg: var(--app-purple-dark);
+  --bs-btn-active-border-color: var(--app-purple-dark);
+  --bs-btn-disabled-bg: var(--app-purple);
+  --bs-btn-disabled-border-color: var(--app-purple);
+}
+
+
+.btn-outline-primary {
+  --bs-btn-color: var(--app-purple);
+  --bs-btn-border-color: var(--app-purple);
+  --bs-btn-hover-bg: var(--app-purple);
+  --bs-btn-hover-border-color: var(--app-purple);
+  --bs-btn-active-bg: var(--app-purple-dark);
+  --bs-btn-active-border-color: var(--app-purple-dark);
+}
+
+
+a {
+  color: var(--app-purple);
+}
+
+a:hover {
+  color: var(--app-purple-hover);
+}
+
+
+.form-control,
+.form-select {
+  border-color: #d8d1e5;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--app-purple);
+  box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.18);
+}
+
+
+.input-group-text {
+  background-color: var(--app-purple-light);
+  border-color: #d8d1e5;
+  color: var(--app-purple-dark);
+}
+
+
+.search-panel {
+  border-color: var(--app-purple-border);
+  background-color: var(--app-purple-light);
+}
+
+.search-panel > i {
+  color: var(--app-purple);
+}
+
+
+.client-info-icon,
+.summary-icon {
+  background-color: var(--app-purple-light);
+  color: var(--app-purple);
+}
+
+.event-details i,
+.summary-detail > i {
+  color: var(--app-purple);
+}
+
+
+.total-row strong,
+.reservation-id {
+  color: var(--app-purple);
+}
+
+
+.table thead th {
+  background-color: var(--app-purple-light);
+}
+
+
+.badge.text-bg-primary {
+  background-color: var(--app-purple) !important;
+}
+
+
+::selection {
+  background-color: var(--app-purple-light);
+  color: var(--app-purple-dark);
+}
+
+/* Fondos de las páginas */
+
+.login-container,
+.register-container,
+.client-container,
+.events-container,
+.reservations-container,
+.create-reservation-container {
+  background-color: var(--app-page-background) !important;
+}
+
+/* Iconos de acciones del cliente */
+
+.client-action > i {
+  color: var(--app-purple);
+}
+
+/* Botones e iconos destacados de las tarjetas */
+
+.event-details i,
+.summary-detail > i,
+.client-info-icon,
+.summary-icon {
+  color: var(--app-purple) !important;
+}
+
+/* Bordes de los campos de formulario */
+
+.form-control:focus,
+.form-select:focus,
+textarea.form-control:focus {
+  border-color: var(--app-purple) !important;
+  box-shadow: 0 0 0 0.25rem rgba(111, 66, 193, 0.18) !important;
+}
+
+/* Selección visual de los enlaces del navbar */
+
+.navbar .nav-link.active {
+  box-shadow: inset 0 -2px 0 #ffffff;
+}
+
