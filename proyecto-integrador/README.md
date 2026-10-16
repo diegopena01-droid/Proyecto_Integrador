@@ -1,59 +1,79 @@
-# ProyectoIntegrador
+## Proyecto Integrador – Web 1
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.37.
+**Institución:** Unidad Central del Valle del Cauca 
+**Programa académico:** Ingeniería de Sistemas  
+**Asignatura:** Bases de Datos  
+**Docente:** Jesús David Mejía Vergara  
 
-## Development server
+## Descripción del proyecto
 
-To start a local development server, run:
+CheckEvent es una aplicación web diseñada para facilitar la gestión de eventos y reservas. Su propósito es ofrecer una interfaz intuitiva en la que los usuarios puedan consultar eventos disponibles, realizar reservas y revisar su estado, mientras que los agentes y administradores cuentan con módulos orientados a la gestión y consulta de información.
 
-```bash
-ng serve
-```
+El proyecto se desarrolla como parte del Proyecto Integrador de la asignatura Programacion Web I y contempla una arquitectura organizada por módulos, con datos de prueba para simular el funcionamiento de la aplicación durante la etapa inicial del desarrollo.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## Objetivo general
 
-## Code scaffolding
+Desarrollar una aplicación web para la gestión de eventos y reservas, con interfaces organizadas por roles de usuario, navegación entre módulos y una estructura que facilite su mantenimiento y futura integración con una base de datos.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Tecnologías utilizadas
 
-```bash
-ng generate component component-name
-```
+- **Angular:** desarrollo de la aplicación web.
+- **TypeScript:** programación y organización de la lógica.
+- **HTML5:** estructura de las páginas.
+- **SCSS:** estilos personalizados.
+- **Bootstrap:** diseño de interfaces y componentes responsivos.
+- **Bootstrap Icons:** iconografía de la aplicación.
+- **Git y GitHub:** control de versiones y trabajo colaborativo.
+- **Datos simulados:** información de prueba para representar eventos y reservas durante el desarrollo del frontend.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Módulos del sistema
 
-```bash
-ng generate --help
-```
+### 1. Autenticación
+- Inicio de sesión.
+- Registro de usuarios.
+- Selección del rol del usuario durante el registro.
 
-## Building
+### 2. Cliente
+- Visualización de eventos disponibles.
+- Consulta de información de los eventos.
+- Creación de reservas.
+- Consulta de las reservas realizadas y sus estados.
 
-To build the project run:
+### 3. Agente
+- Módulo para la gestión de eventos.
+- Consulta de eventos registrados.
+- Gestión y actualización del estado de las reservas.
 
-```bash
-ng build
-```
+### 4. Administrador
+- Módulo destinado a la consulta de información y generación de reportes.
+- Visualización de información mediante tablas y gráficos.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+**Nota:** los módulos se encuentran en desarrollo progresivo. La disponibilidad de cada funcionalidad depende de su implementación actual en el proyecto.
 
-## Running unit tests
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## Requisitos previos
 
-```bash
-ng test
-```
+Para ejecutar el proyecto se necesita:
 
-## Running end-to-end tests
+- Node.js y npm instalados.
+- Visual Studio Code u otro editor compatible.
+- Git para gestionar los cambios del proyecto.
 
-For end-to-end (e2e) testing, run:
 
-```bash
-ng e2e
-```
+## Diseño de la interfaz
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+Eventia utiliza una identidad visual basada en tonos morados, tarjetas para presentar los eventos, iconos para facilitar la identificación de la información y componentes de Bootstrap para mantener una interfaz organizada y adaptable a diferentes tamaños de pantalla.
 
-## Additional Resources
+## Estado actual del proyecto
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+El proyecto se encuentra en desarrollo. Actualmente se trabaja en la estructura de navegación, las páginas de autenticación y los módulos del cliente, con el objetivo de completar progresivamente las funcionalidades correspondientes a cada rol.
+
+La información simulada permite probar la presentación de los datos y el flujo de navegación antes de implementar la integración con una base de datos.
+
+## Control de versiones
+
+El proyecto utiliza Git y GitHub para registrar los avances mediante commits y facilitar el trabajo colaborativo.
+
+## Licencia
+
+Proyecto académico desarrollado con fines educativos para la asignatura Bases de Datos de la UCEVA.
