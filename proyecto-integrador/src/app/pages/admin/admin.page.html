@@ -1,1 +1,100 @@
-<p>admin works!</p>
+<div class="container py-5">
+
+  <div class="mb-4">
+    <h1 class="fw-bold">Panel del Administrador</h1>
+    <p class="text-muted">Resumen general del sistema de eventos y reservas.</p>
+  </div>
+
+  <!-- Estadísticas -->
+  <div class="row g-3 mb-4">
+
+    <div class="col-md-3 col-sm-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <p class="text-muted mb-2">Total de eventos</p>
+          <h2 class="fw-bold text-primary">24</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <p class="text-muted mb-2">Reservas</p>
+          <h2 class="fw-bold text-success">156</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <p class="text-muted mb-2">Clientes registrados</p>
+          <h2 class="fw-bold text-info">89</h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3 col-sm-6">
+      <div class="card shadow-sm border-0 h-100">
+        <div class="card-body">
+          <p class="text-muted mb-2">Reservas canceladas</p>
+          <h2 class="fw-bold text-danger">12</h2>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Reporte -->
+  <div class="card shadow-sm border-0">
+    <div class="card-body">
+
+      <h4 class="fw-bold mb-3">Reporte de eventos</h4>
+
+      <div class="table-responsive">
+        <table class="table table-hover align-middle">
+
+          <thead class="table-primary">
+            <tr>
+              <th>Código</th>
+              <th>Evento</th>
+              <th>Ciudad</th>
+              <th>Reservas</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>EVT-001</td>
+              <td>Festival de Música</td>
+              <td>Cali</td>
+              <td>45</td>
+              <td><span class="badge bg-primary">Programado</span></td>
+            </tr>
+
+            <tr>
+              <td>EVT-002</td>
+              <td>Conferencia de Tecnología</td>
+              <td>Bogotá</td>
+              <td>68</td>
+              <td><span class="badge bg-info text-dark">En Boletería</span></td>
+            </tr>
+
+            <tr>
+              <td>EVT-003</td>
+              <td>Obra de Teatro</td>
+              <td>Bogotá</td>
+              <td>43</td>
+              <td><span class="badge bg-success">En Vivo</span></td>
+            </tr>
+          </tbody>
+
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+</div>
