@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { EventoController } from "./evento.controller";
-import { validateToken, authorizeRoles } from "../../../middlewares/auth.middleware";
+import { validateToken, authorizeRoles } from "../../middlewares/auth.middleware";
 export class EventoRoutes {
   static get routes(): Router {
     const router = Router();
