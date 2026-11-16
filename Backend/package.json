@@ -4,11 +4,11 @@
   "description": "Backend API CheckEvent - Proyecto Integrador UCEVA",
   "main": "index.js",
   "scripts": {
-    "start": "tsnd --respawn --clear src/app.ts",
-    "db:init": "tsnd --transpile-only src/scripts/init-db.ts",
-    "db:seed": "tsnd --transpile-only src/scripts/seed-db.ts",
-    "db:fix-passwords": "tsnd --transpile-only src/scripts/fix-passwords.ts"
-  },
+  "start": "tsnd --respawn --clear src/app.ts",
+  "db:init": "tsnd --transpile-only src/scripts/init-db.ts",
+  "db:seed": "tsnd --transpile-only src/scripts/seed-db.ts",
+  "db:fix-passwords": "tsnd --transpile-only src/scripts/fix-passwords.ts"
+},
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
