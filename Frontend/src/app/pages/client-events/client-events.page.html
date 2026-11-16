@@ -96,21 +96,20 @@
               </div>
 
               <button
-                type="button"
-                class="btn btn-primary w-100 mt-3"
-                [disabled]="evento.estado !== 'Programado'"
-                [routerLink]="['/client/create-reservation']"
-                [queryParams]="{ eventoId: evento.codigo }">
+                  type="button"
+                  class="btn btn-primary w-100 mt-3"
+                  [disabled]="evento.estado !== 'Programado'"
+                  [routerLink]="['/client/create-reservation', evento.codigo]">
 
-                <i class="bi bi-bookmark-plus me-2"></i>
+                  <i class="bi bi-bookmark-plus me-2"></i>
 
-                {{
-                  evento.estado === 'Programado'
-                    ? 'Reservar'
-                    : 'No disponible'
-                }}
+                  {{
+                    evento.estado === 'Programado'
+                      ? 'Reservar'
+                      : 'No disponible'
+                  }}
 
-              </button>
+                </button>
 
             </div>
           </div>

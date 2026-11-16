@@ -35,47 +35,56 @@ export const routes: Routes = [
 
   {
     path: 'client',
-    component: ClientPage
-  },
-
-  {
-    path: 'client/events',
-    component: ClientEventsPage
-  },
-
-  {
-    path: 'client/reservations',
-    component: ClientReservationsPage
-  },
-
-  {
-    path: 'client/create-reservation',
-    component: ClientCreateReservationPage
+    children: [
+      {
+        path: '',
+        component: ClientPage
+      },
+      {
+        path: 'events',
+        component: ClientEventsPage
+      },
+      {
+        path: 'reservations',
+        component: ClientReservationsPage
+      },
+      {
+        path: 'create-reservation/:eventoId',
+        component: ClientCreateReservationPage
+      }
+    ]
   },
 
   {
     path: 'agent',
-    component: AgentPage
-  },
-
-  {
-    path: 'agent/events',
-    component: AgentEventsPage
-  },
-
-  {
-    path: 'agent/reservations',
-    component: AgentReservationsPage
-  },
-
-  {
-    path: 'agent/create-event',
-    component: AgentCreateEventPage
+    children: [
+      {
+        path: '',
+        component: AgentPage
+      },
+      {
+        path: 'events',
+        component: AgentEventsPage
+      },
+      {
+        path: 'reservations',
+        component: AgentReservationsPage
+      },
+      {
+        path: 'create-event',
+        component: AgentCreateEventPage
+      }
+    ]
   },
 
   {
     path: 'admin',
-    component: AdminPage
+    children: [
+      {
+        path: '',
+        component: AdminPage
+      }
+    ]
   },
 
   {

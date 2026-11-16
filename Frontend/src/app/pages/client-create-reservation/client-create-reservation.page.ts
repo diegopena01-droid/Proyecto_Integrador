@@ -89,16 +89,16 @@ export class ClientCreateReservationPage {
   mensajeExito = '';
   reservaGenerada = '';
 
-  constructor(private route: ActivatedRoute) {
-    this.route.queryParamMap.subscribe(params => {
-      const eventoId = params.get('eventoId');
+ constructor(private route: ActivatedRoute) {
+  this.route.paramMap.subscribe(params => {
+    const eventoId = params.get('eventoId');
 
-      if (eventoId) {
-        this.eventoSeleccionadoId = eventoId;
-        this.actualizarEvento();
-      }
-    });
-  }
+    if (eventoId) {
+      this.eventoSeleccionadoId = eventoId;
+      this.actualizarEvento();
+    }
+  });
+}
 
   get eventoSeleccionado(): EventoDisponible | undefined {
     return this.eventosDisponibles.find(
