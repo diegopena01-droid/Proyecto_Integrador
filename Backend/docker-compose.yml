@@ -3,20 +3,22 @@ version: '3'
 services:
   myDB:
     image: postgres:15.3
-    container_name: backend-crud-app
+    container_name: checkevent-db
     restart: always
     ports:
-      - 5432:5432
+      - 5433:5432
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=123456
-      - POSTGRES_DB=backend-crud-db
+      - POSTGRES_DB=checkevent_db
     volumes:
       - ./postgres:/var/lib/postgresql/data
-  
+      - ./src/database/init.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./src/database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql
+
   pdAdmin:
     image: dpage/pgadmin4
-    container_name: pgadmin-proyecto-integrador-db
+    container_name: checkevent-pgadmin
     restart: always
     depends_on:
       - myDB
@@ -27,6 +29,3 @@ services:
       - PGADMIN_DEFAULT_PASSWORD=123456
     volumes:
       - ./pgadmin:/var/lib/pgadmin
-      - ./pgadmin:/certs/server.cert
-      - ./pgadmin:/certs/server.key
-      - ./pgadmin:/pgadmin4/servers.json
