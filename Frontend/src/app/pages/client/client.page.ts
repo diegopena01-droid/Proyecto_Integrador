@@ -1,0 +1,11 @@
+import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+@Component({
+  selector: 'app-client',
+  imports: [RouterLink],
+  templateUrl: './client.page.html',
+  styleUrl: './client.page.scss',
+})
+export class ClientPage {
+
+}

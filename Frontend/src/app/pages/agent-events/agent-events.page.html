@@ -1,0 +1,117 @@
+```html
+<div class="container py-5">
+
+  <!-- Encabezado -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="fw-bold">Eventos registrados</h1>
+      <p class="text-muted">
+        Consulta y administra los eventos y espectáculos registrados.
+      </p>
+    </div>
+
+    <a
+      routerLink="/agent/create-event"
+      class="btn btn-success"
+    >
+      <i class="bi bi-plus-circle me-2"></i>
+      Registrar evento
+    </a>
+  </div>
+
+  <!-- Lista de eventos -->
+  <div class="row g-4">
+
+    @for (evento of eventos; track evento.codigo) {
+      <div class="col-12">
+
+        <div class="card shadow-sm border-0">
+          <div class="card-body">
+
+            <!-- Nombre, código y estado -->
+            <div class="d-flex justify-content-between align-items-start gap-3">
+              <div>
+                <h3 class="fw-bold">{{ evento.nombre }}</h3>
+                <p class="text-muted mb-1">
+                  Código: {{ evento.codigo }}
+                </p>
+              </div>
+
+              <span
+                class="badge"
+                [class.bg-success]="evento.estado === 'Programado'"
+                [class.bg-warning]="evento.estado === 'En Boletería'"
+                [class.bg-info]="evento.estado === 'En Vivo'"
+                [class.bg-secondary]="evento.estado === 'Finalizado'"
+                [class.bg-danger]="evento.estado === 'Cancelado'"
+              >
+                {{ evento.estado }}
+              </span>
+            </div>
+
+            <hr>
+
+            <!-- Información del evento -->
+            <div class="row">
+              <div class="col-md-6">
+                <p>
+                  <strong>Descripción:</strong><br>
+                  {{ evento.descripcion }}
+                </p>
+
+                <p>
+                  <strong>Teatro:</strong>
+                  {{ evento.teatro }}
+                </p>
+
+                <p>
+                  <strong>Ciudad:</strong>
+                  {{ evento.ciudad }}
+                </p>
+              </div>
+
+              <div class="col-md-6">
+                <p>
+                  <strong>Fecha:</strong><br>
+                  {{ evento.fechaInicio }}
+                </p>
+
+                <p>
+                  <strong>Horario:</strong><br>
+                  {{ evento.horaInicio }} – {{ evento.horaFin }}
+                </p>
+
+                <p>
+                  <strong>Capacidad:</strong>
+                  {{ evento.capacidad }} espectadores
+                </p>
+              </div>
+            </div>
+
+            <hr>
+
+            <!-- Precio -->
+            <div class="row">
+              <div class="col-md-6">
+                <p class="mb-0">
+                  <strong>Precio base:</strong>
+                  {{ evento.precioTexto }}
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    } @empty {
+      <div class="col-12">
+        <div class="alert alert-info">
+          No hay eventos registrados.
+        </div>
+      </div>
+    }
+
+  </div>
+</div>
+```
