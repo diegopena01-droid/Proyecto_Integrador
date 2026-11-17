@@ -1,6 +1,7 @@
-
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 type EstadoEvento =
   | 'Programado'
@@ -10,6 +11,7 @@ type EstadoEvento =
   | 'Cancelado';
 
 interface EventoVista {
+  id: number;
   codigo: string;
   nombre: string;
   descripcion: string;
@@ -26,97 +28,69 @@ interface EventoVista {
 
 @Component({
   selector: 'app-client-events',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule],
   templateUrl: './client-events.page.html',
-  styleUrl: './client-events.page.scss'
+  styleUrl: './client-events.page.scss',
 })
-export class ClientEventsPage {
+export class ClientEventsPage implements OnInit {
+  eventos: EventoVista[] = [];
+  loading = true;
+  error = '';
 
-  eventos: EventoVista[] = [
-    {
-      codigo: 'EV001',
-      nombre: 'Concierto de Rock',
-      descripcion: 'Una noche de música en vivo con grandes bandas.',
-      teatro: 'Teatro Municipal',
-      ciudad: 'Tuluá',
-      fechaInicio: '20/11/2026',
-      horaInicio: '19:00',
-      horaFin: '22:00',
-      capacidad: 500,
-      precioTexto: '$80.000 COP',
-      estado: 'Programado',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrMLiXncPC_faDwaHx5GP1D3QYeP-SxRSmqvwigFf_aA&s=10'
-    },
-    {
-      codigo: 'EV002',
-      nombre: 'Festival de Música',
-      descripcion: 'Disfruta una jornada llena de música y artistas.',
-      teatro: 'Coliseo Central',
-      ciudad: 'Cali',
-      fechaInicio: '25/11/2026',
-      horaInicio: '16:00',
-      horaFin: '23:00',
-      capacidad: 1200,
-      precioTexto: '$120.000 COP',
-      estado: 'Programado',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVwCzKfOWxF4n3SNuNbimUY8x-NnGW58h6H5nvaABL5w&s=10'
-      
-    },
-    {
-      codigo: 'EV003',
-      nombre: 'Obra de Teatro',
-      descripcion: 'Una presentación teatral para disfrutar en familia.',
-      teatro: 'Teatro Principal',
-      ciudad: 'Buga',
-      fechaInicio: '28/11/2026',
-      horaInicio: '18:00',
-      horaFin: '20:00',
-      capacidad: 300,
-      precioTexto: '$45.000 COP',
-      estado: 'Programado',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWG4va_dysPAIyvWmlki4Jl7gvPWtV64KIs23Wp5vEaQ&s=10'
-    },
-    {
-      codigo: 'EV004',
-      nombre: 'Festival Cultural',
-      descripcion: 'Una celebración de arte, cultura y tradición.',
-      teatro: 'Centro de Eventos',
-      ciudad: 'Tuluá',
-      fechaInicio: '05/12/2026',
-      horaInicio: '14:00',
-      horaFin: '21:00',
-      capacidad: 800,
-      precioTexto: '$35.000 COP',
-      estado: 'En Boletería',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSoNbU791LsjYgcJwmE_qOtbX2RiLhcbwqY91quutAjbw&s=10'
-    },
-    {
-      codigo: 'EV005',
-      nombre: 'Noche de Comedia',
-      descripcion: 'Una noche de humor con invitados especiales.',
-      teatro: 'Teatro Municipal',
-      ciudad: 'Cali',
-      fechaInicio: '10/12/2026',
-      horaInicio: '20:00',
-      horaFin: '22:00',
-      capacidad: 400,
-      precioTexto: '$60.000 COP',
-      estado: 'Programado',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP5oYyjpzqaoXGLg0BYl2tRJG2328Pf3gGQt3w9Jr8iA&s=10'
-    },
-    {
-      codigo: 'EV006',
-      nombre: 'Concierto Acústico',
-      descripcion: 'Una experiencia musical en un formato íntimo.',
-      teatro: 'Auditorio Central',
-      ciudad: 'Buga',
-      fechaInicio: '15/12/2026',
-      horaInicio: '19:00',
-      horaFin: '21:00',
-      capacidad: 250,
-      precioTexto: '$55.000 COP',
-      estado: 'Cancelado',
-      imagen: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3a9xZTydX0OoPeHSW8LrwwjS8WcLpje_Aa_IkzJEvHA&s=10'
-    }
-  ];
+  constructor(private api: ApiService) {}
+
+  ngOnInit() {
+    this.cargarEventos();
+  }
+
+  cargarEventos() {
+    this.loading = true;
+    this.error = '';
+
+    this.api.getEventos().subscribe({
+      next: (data) => {
+        // El backend del lab devuelve el array directo
+        const lista = Array.isArray(data) ? data : data?.data || [];
+
+        this.eventos = lista.map((e: any) => ({
+          id: e.id,
+          codigo: e.codigo,
+          nombre: e.nombre,
+          descripcion: e.descripcion || '',
+          teatro: e.teatro || 'Sin teatro',
+          ciudad: e.ciudad || 'Sin ciudad',
+          fechaInicio: this.formatearFecha(e.fecha_inicio),
+          horaInicio: String(e.hora_inicio || '').substring(0, 5),
+          horaFin: String(e.hora_fin || '').substring(0, 5),
+          capacidad: e.capacidad,
+          precioTexto: this.formatearPrecio(e.precio),
+          estado: e.estado,
+          imagen: e.imagen_url || 'https://via.placeholder.com/400x200',
+        }));
+
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err?.error?.error || 'Error al cargar eventos';
+        this.loading = false;
+      },
+    });
+  }
+
+  private formatearFecha(fecha: string): string {
+    if (!fecha) return '';
+    // Si viene "2026-11-20" o ISO
+    const d = new Date(fecha);
+    if (isNaN(d.getTime())) return fecha;
+    return d.toLocaleDateString('es-CO');
+  }
+
+  private formatearPrecio(precio: number | string): string {
+    const n = Number(precio) || 0;
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      maximumFractionDigits: 0,
+    }).format(n);
+  }
 }

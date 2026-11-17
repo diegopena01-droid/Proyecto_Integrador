@@ -1,17 +1,15 @@
-
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CurrencyPipe } from '@angular/common';
+import { CurrencyPipe, CommonModule } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
-type EstadoReserva = 'Reservada' | 'Confirmada' | 'Cancelada';
+type EstadoReserva = 'Reservada' | 'Confirmada' | 'Cancelada' | 'Asistida';
 
 interface ReservaCliente {
   id: string;
-  clienteId: number;
   codigoEvento: string;
   evento: string;
   fecha: string;
-  hora: string;
   valorTotal: number;
   numeroEntradas: number;
   observaciones: string;
@@ -20,58 +18,48 @@ interface ReservaCliente {
 
 @Component({
   selector: 'app-client-reservations',
-  imports: [RouterLink, CurrencyPipe],
+  imports: [RouterLink, CurrencyPipe, CommonModule],
   templateUrl: './client-reservations.page.html',
-  styleUrl: './client-reservations.page.scss'
+  styleUrl: './client-reservations.page.scss',
 })
-export class ClientReservationsPage {
+export class ClientReservationsPage implements OnInit {
+  reservas: ReservaCliente[] = [];
+  loading = true;
+  error = '';
 
-  // Datos ficticios para construir y probar la interfaz.
-  // En la siguiente etapa los trasladaremos a un servicio.
+  constructor(private api: ApiService) {}
 
-  reservas: ReservaCliente[] = [
-    {
-      id: 'RES001',
-      clienteId: 1,
-      codigoEvento: 'EV001',
-      evento: 'Concierto de Rock',
-      fecha: '10/10/2026',
-      hora: '10:30',
-      valorTotal: 160000,
-      numeroEntradas: 2,
-      observaciones: 'Dos entradas para el evento.',
-      estado: 'Confirmada'
-    },
-    {
-      id: 'RES002',
-      clienteId: 1,
-      codigoEvento: 'EV003',
-      evento: 'Obra de Teatro',
-      fecha: '12/10/2026',
-      hora: '15:45',
-      valorTotal: 45000,
-      numeroEntradas: 1,
-      observaciones: 'Una entrada.',
-      estado: 'Reservada'
-    },
-    {
-      id: 'RES003',
-      clienteId: 1,
-      codigoEvento: 'EV005',
-      evento: 'Noche de Comedia',
-      fecha: '13/10/2026',
-      hora: '09:15',
-      valorTotal: 120000,
-      numeroEntradas: 2,
-      observaciones: 'Reserva de ejemplo cancelada.',
-      estado: 'Cancelada'
-    }
-  ];
+  ngOnInit() {
+    this.cargarReservas();
+  }
+
+  cargarReservas() {
+    this.loading = true;
+    this.api.getMisReservas().subscribe({
+      next: (data) => {
+        const lista = Array.isArray(data) ? data : data?.data || [];
+        this.reservas = lista.map((r: any) => ({
+          id: r.codigo,
+          codigoEvento: r.evento_codigo,
+          evento: r.evento_nombre,
+          fecha: r.created_at
+            ? new Date(r.created_at).toLocaleDateString('es-CO')
+            : '',
+          valorTotal: Number(r.valor_total),
+          numeroEntradas: r.numero_entradas,
+          observaciones: r.observaciones || '',
+          estado: r.estado,
+        }));
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err?.error?.error || 'Error al cargar reservas';
+        this.loading = false;
+      },
+    });
+  }
 
   contarPorEstado(estado: EstadoReserva): number {
-    return this.reservas.filter(
-      reserva => reserva.estado === estado
-    ).length;
+    return this.reservas.filter((r) => r.estado === estado).length;
   }
 }
-
