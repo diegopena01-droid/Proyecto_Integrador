@@ -10,6 +10,7 @@ interface ReservaCliente {
   codigoEvento: string;
   evento: string;
   fecha: string;
+  hora: string;  
   valorTotal: number;
   numeroEntradas: number;
   observaciones: string;
