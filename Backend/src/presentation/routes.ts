@@ -5,7 +5,7 @@ import { EventoRoutes } from "./modules/evento/evento.routes";
 import { ReservaRoutes } from "./modules/reserva/reserva.routes";
 import { ReporteRoutes } from "./modules/reporte/reporte.routes";
 import { UsuarioRoutes } from "./modules/usuario/usuario.routes";
-
+import { TeatroRoutes } from "./modules/teatro/teatro.routes";
 export class AppRoutes {
   static get routes(): Router {
     const router = Router();
@@ -17,6 +17,7 @@ export class AppRoutes {
     apiRouter.use("/reservas", ReservaRoutes.routes);
     apiRouter.use("/reportes", ReporteRoutes.routes);
     apiRouter.use("/usuarios", UsuarioRoutes.routes);
+    apiRouter.use("/teatros", TeatroRoutes.routes);
 
     apiRouter.get("/health", (_req, res) => {
       res.json({ ok: true, message: "CheckEvent API running" });
