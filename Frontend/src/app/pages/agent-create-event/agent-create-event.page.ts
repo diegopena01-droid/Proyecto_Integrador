@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -10,7 +10,7 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './agent-create-event.page.html',
   styleUrl: './agent-create-event.page.scss',
 })
-export class AgentCreateEventPage {
+export class AgentCreateEventPage implements OnInit {
   codigo = '';
   nombre = '';
   descripcion = '';
@@ -21,6 +21,13 @@ export class AgentCreateEventPage {
   precio = 0;
   estado = 'Programado';
   imagenUrl = '';
+
+  ciudadId: number | null = null;
+  teatroId: number | null = null;
+
+  ciudades: any[] = [];
+  teatros: any[] = [];
+  teatrosFiltrados: any[] = [];
 
   error = '';
   mensaje = '';
@@ -33,12 +40,60 @@ export class AgentCreateEventPage {
     private router: Router
   ) {}
 
+  ngOnInit() {
+    this.cargarCiudades();
+    this.cargarTeatros();
+  }
+
+  cargarCiudades() {
+    this.api.getCiudades().subscribe({
+      next: (data) => {
+        this.ciudades = Array.isArray(data) ? data : data?.data || [];
+      },
+      error: () => {
+        this.error = 'No se pudieron cargar las ciudades';
+      },
+    });
+  }
+
+  cargarTeatros() {
+    this.api.getTeatros().subscribe({
+      next: (data) => {
+        this.teatros = Array.isArray(data) ? data : data?.data || [];
+        this.filtrarTeatros();
+      },
+      error: () => {
+        this.teatros = [];
+      },
+    });
+  }
+
+  onCiudadChange() {
+    this.teatroId = null;
+    this.filtrarTeatros();
+  }
+
+  filtrarTeatros() {
+    if (!this.ciudadId) {
+      this.teatrosFiltrados = this.teatros;
+      return;
+    }
+    this.teatrosFiltrados = this.teatros.filter(
+      (t) => Number(t.ciudad_id) === Number(this.ciudadId)
+    );
+  }
+
   onSubmit() {
     this.error = '';
     this.mensaje = '';
+
+    if (!this.ciudadId) {
+      this.error = 'Selecciona una ciudad';
+      return;
+    }
+
     this.enviando = true;
 
-    // Si usas datetime-local, puedes separar fecha y hora
     let fecha = this.fechaInicio;
     let hora = this.horaInicio;
 
@@ -48,7 +103,7 @@ export class AgentCreateEventPage {
       hora = partes[1]?.substring(0, 5) || this.horaInicio;
     }
 
-    const body = {
+    const body: any = {
       codigo: this.codigo.trim(),
       nombre: this.nombre.trim(),
       descripcion: this.descripcion.trim() || undefined,
@@ -59,14 +114,17 @@ export class AgentCreateEventPage {
       precio: Number(this.precio),
       estado: this.estado,
       imagen_url: this.imagenUrl.trim() || undefined,
+      ciudad_id: Number(this.ciudadId),
     };
+
+    if (this.teatroId) {
+      body.teatro_id = Number(this.teatroId);
+    }
 
     this.api.createEvento(body).subscribe({
       next: (res) => {
         this.mensaje = `Evento ${res.codigo || this.codigo} creado correctamente`;
         this.enviando = false;
-        // Opcional: ir a la lista
-        // this.router.navigate(['/agent/events']);
       },
       error: (err) => {
         this.error =

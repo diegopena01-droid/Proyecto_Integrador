@@ -3,9 +3,11 @@
   <div class="mb-4 d-flex justify-content-between align-items-start">
     <div>
       <h1 class="fw-bold">Registrar evento</h1>
-      <p class="text-muted mb-0">Completa todos los datos del evento o espectáculo.</p>
+      <p class="text-muted mb-0">
+        Completa todos los datos del evento o espectáculo.
+      </p>
     </div>
-    <a routerLink="/agent/events" class="btn btn-outline-primary">
+    <a routerLink="/agent/events" class="btn btn-outline-secondary">
       <i class="bi bi-arrow-left me-2"></i>
       Volver
     </a>
@@ -63,6 +65,53 @@
           </div>
 
           <div class="col-md-6">
+            <label for="ciudad" class="form-label">
+              Ciudad <span class="text-danger">*</span>
+            </label>
+            <select
+              id="ciudad"
+              class="form-select"
+              [(ngModel)]="ciudadId"
+              name="ciudadId"
+              (ngModelChange)="onCiudadChange()"
+              required>
+              <option [ngValue]="null" disabled>Selecciona una ciudad</option>
+              @for (c of ciudades; track c.id) {
+                <option [ngValue]="c.id">
+                  {{ c.nombre }}
+                  @if (c.departamento_nombre) {
+                    ({{ c.departamento_nombre }})
+                  }
+                </option>
+              }
+            </select>
+          </div>
+
+          <div class="col-md-6">
+            <label for="teatro" class="form-label">Teatro / lugar</label>
+            <select
+              id="teatro"
+              class="form-select"
+              [(ngModel)]="teatroId"
+              name="teatroId">
+              <option [ngValue]="null">Selecciona un teatro (opcional)</option>
+              @for (t of teatrosFiltrados; track t.id) {
+                <option [ngValue]="t.id">
+                  {{ t.nombre }}
+                  @if (t.ciudad) {
+                    — {{ t.ciudad }}
+                  }
+                </option>
+              }
+            </select>
+            @if (ciudadId && teatrosFiltrados.length === 0) {
+              <small class="text-muted">
+                No hay teatros cargados para esta ciudad.
+              </small>
+            }
+          </div>
+
+          <div class="col-md-6">
             <label for="fechaInicio" class="form-label">Fecha de inicio</label>
             <input
               type="date"
@@ -111,16 +160,19 @@
           </div>
 
           <div class="col-md-4">
-            <label for="precio" class="form-label">Precio (COP)</label>
-            <input
-              type="number"
-              id="precio"
-              class="form-control"
-              min="0"
-              [(ngModel)]="precio"
-              name="precio"
-              required
-            >
+            <label for="precio" class="form-label">Precio base (COP)</label>
+            <div class="input-group">
+              <span class="input-group-text">$</span>
+              <input
+                type="number"
+                id="precio"
+                class="form-control"
+                min="0"
+                [(ngModel)]="precio"
+                name="precio"
+                required
+              >
+            </div>
           </div>
 
           <div class="col-md-4">
@@ -129,7 +181,8 @@
               id="estado"
               class="form-select"
               [(ngModel)]="estado"
-              name="estado">
+              name="estado"
+              required>
               @for (e of estados; track e) {
                 <option [value]="e">{{ e }}</option>
               }
@@ -148,20 +201,21 @@
             >
           </div>
 
-          <div class="col-12 d-flex gap-2 mt-3">
-            <button
-              type="submit"
-              class="btn btn-primary"
-              [disabled]="enviando">
-              <i class="bi bi-plus-circle me-2"></i>
-              {{ enviando ? 'Guardando...' : 'Crear evento' }}
-            </button>
-            <a routerLink="/agent/events" class="btn btn-outline-secondary">
-              Cancelar
-            </a>
-          </div>
-
         </div>
+
+        <hr class="my-4">
+
+        <div class="d-flex justify-content-end gap-2">
+          <a routerLink="/agent/events" class="btn btn-secondary">Cancelar</a>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="enviando">
+            <i class="bi bi-plus-circle me-2"></i>
+            {{ enviando ? 'Guardando...' : 'Crear evento' }}
+          </button>
+        </div>
+
       </form>
 
     </div>

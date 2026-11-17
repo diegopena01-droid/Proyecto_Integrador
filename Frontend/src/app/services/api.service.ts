@@ -119,4 +119,13 @@ export class ApiService {
       headers: this.headers(),
     });
   }
+  
+  getCiudades(): Observable<any> {
+    return this.http.get(`${API_URL}/localizacion/ciudades`);
+  }
+
+  getTeatros(): Observable<any> {
+    return this.http.get(`${API_URL}/teatros`, { headers: this.headers() });
+  }
 }
+  
