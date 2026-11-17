@@ -1,97 +1,84 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-agent-events',
-  imports: [RouterLink],
+  imports: [RouterLink, CommonModule, CurrencyPipe],
   templateUrl: './agent-events.page.html',
   styleUrl: './agent-events.page.scss',
 })
-export class AgentEventsPage {
- eventos = [
-    {
-      codigo: 'EV001',
-      nombre: 'Concierto de Rock',
-      descripcion: 'Una noche de música en vivo con grandes bandas.',
-      teatro: 'Teatro Municipal',
-      ciudad: 'Tuluá',
-      fechaInicio: '20/11/2026',
-      horaInicio: '19:00',
-      horaFin: '22:00',
-      capacidad: 500,
-      precio: 80000,
-      precioTexto: '$80.000 COP',
-      estado: 'Programado'
-    },
-    {
-      codigo: 'EV002',
-      nombre: 'Festival de Música',
-      descripcion: 'Disfruta una jornada llena de música y artistas.',
-      teatro: 'Coliseo Central',
-      ciudad: 'Cali',
-      fechaInicio: '25/11/2026',
-      horaInicio: '16:00',
-      horaFin: '23:00',
-      capacidad: 1200,
-      precio: 120000,
-      precioTexto: '$120.000 COP',
-      estado: 'Programado'
-    },
-    {
-      codigo: 'EV003',
-      nombre: 'Obra de Teatro',
-      descripcion: 'Una presentación teatral para disfrutar en familia.',
-      teatro: 'Teatro Principal',
-      ciudad: 'Buga',
-      fechaInicio: '28/11/2026',
-      horaInicio: '18:00',
-      horaFin: '20:00',
-      capacidad: 300,
-      precio: 45000,
-      precioTexto: '$45.000 COP',
-      estado: 'Programado'
-    },
-    {
-      codigo: 'EV004',
-      nombre: 'Festival Cultural',
-      descripcion: 'Una celebración de arte, cultura y tradición.',
-      teatro: 'Centro de Eventos',
-      ciudad: 'Tuluá',
-      fechaInicio: '05/12/2026',
-      horaInicio: '14:00',
-      horaFin: '21:00',
-      capacidad: 800,
-      precio: 35000,
-      precioTexto: '$35.000 COP',
-      estado: 'En Boletería'
-    },
-    {
-      codigo: 'EV005',
-      nombre: 'Noche de Comedia',
-      descripcion: 'Una noche de humor con invitados especiales.',
-      teatro: 'Teatro Municipal',
-      ciudad: 'Cali',
-      fechaInicio: '10/12/2026',
-      horaInicio: '20:00',
-      horaFin: '22:00',
-      capacidad: 400,
-      precio: 60000,
-      precioTexto: '$60.000 COP',
-      estado: 'Programado'
-    },
-    {
-      codigo: 'EV006',
-      nombre: 'Concierto Acústico',
-      descripcion: 'Una experiencia musical en un formato íntimo.',
-      teatro: 'Auditorio Central',
-      ciudad: 'Buga',
-      fechaInicio: '15/12/2026',
-      horaInicio: '19:00',
-      horaFin: '21:00',
-      capacidad: 250,
-      precio: 55000,
-      precioTexto: '$55.000 COP',
-      estado: 'Cancelado'
-    }
-  ];
+export class AgentEventsPage implements OnInit {
+  eventos: any[] = [];
+  loading = true;
+  error = '';
+  mensaje = '';
+
+  constructor(private api: ApiService) {}
+
+  ngOnInit() {
+    this.cargarEventos();
+  }
+
+  cargarEventos() {
+    this.loading = true;
+    this.error = '';
+
+    this.api.getEventos().subscribe({
+      next: (data) => {
+        const lista = Array.isArray(data) ? data : data?.data || [];
+        this.eventos = lista.map((e: any) => ({
+          id: e.id,
+          codigo: e.codigo,
+          nombre: e.nombre,
+          descripcion: e.descripcion || '',
+          teatro: e.teatro || 'Sin teatro',
+          ciudad: e.ciudad || 'Sin ciudad',
+          fechaInicio: this.formatearFecha(e.fecha_inicio),
+          horaInicio: String(e.hora_inicio || '').substring(0, 5),
+          horaFin: String(e.hora_fin || '').substring(0, 5),
+          capacidad: e.capacidad,
+          precio: Number(e.precio),
+          precioTexto: this.formatearPrecio(e.precio),
+          estado: e.estado,
+        }));
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = err?.error?.error || 'Error al cargar eventos';
+        this.loading = false;
+      },
+    });
+  }
+
+  eliminarEvento(id: number, codigo: string) {
+    if (!confirm(`¿Eliminar el evento ${codigo}?`)) return;
+
+    this.api.deleteEvento(id).subscribe({
+      next: () => {
+        this.mensaje = `Evento ${codigo} eliminado`;
+        this.cargarEventos();
+      },
+      error: (err) => {
+        this.error = err?.error?.error || 'No se pudo eliminar';
+      },
+    });
+  }
+
+  private formatearFecha(fecha: string): string {
+    if (!fecha) return '';
+    const d = new Date(fecha);
+    if (isNaN(d.getTime())) return fecha;
+    return d.toLocaleDateString('es-CO');
+  }
+
+  private formatearPrecio(precio: number | string): string {
+    const n = Number(precio) || 0;
+    return new Intl.NumberFormat('es-CO', {
+      style: 'currency',
+      currency: 'COP',
+      maximumFractionDigits: 0,
+    }).format(n);
+  }
 }

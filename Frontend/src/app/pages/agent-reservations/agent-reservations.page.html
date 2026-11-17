@@ -1,214 +1,79 @@
-<div class="container py-5">
+<div class="container py-4">
 
-  <div class="mb-4">
-
-    <h1 class="fw-bold">
-      Gestión de reservas
-    </h1>
-
-    <p class="text-muted">
-      Consulta las reservas solicitadas y actualiza su estado.
-    </p>
-
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h1 class="fw-bold mb-1">Reservas</h1>
+      <p class="text-muted mb-0">Todas las reservas del sistema</p>
+    </div>
+    <a routerLink="/agent" class="btn btn-outline-primary">Volver</a>
   </div>
 
+  @if (loading) {
+    <p class="text-center">Cargando reservas...</p>
+  }
+  @if (error) {
+    <div class="alert alert-danger">{{ error }}</div>
+  }
+  @if (mensaje) {
+    <div class="alert alert-success">{{ mensaje }}</div>
+  }
+
   <div class="card shadow-sm border-0">
-
-    <div class="card-body p-0">
-
+    <div class="card-body">
       <div class="table-responsive">
-
-        <table class="table table-hover align-middle mb-0">
-
-          <thead class="table-primary">
-
+        <table class="table table-hover align-middle">
+          <thead class="table-light">
             <tr>
-              <th>Identificador</th>
+              <th>Código</th>
               <th>Cliente</th>
               <th>Evento</th>
-              <th>Fecha de reserva</th>
               <th>Entradas</th>
-              <th>Valor total</th>
-              <th>Observaciones</th>
+              <th>Total</th>
               <th>Estado</th>
-              <th>Acciones</th>
+              <th>Fecha</th>
+              <th></th>
             </tr>
-
           </thead>
-
           <tbody>
-
-            
-
-            <tr>
-
-              <td>
-                RES-001
-              </td>
-
-              <td>
-                Juan Pérez
-              </td>
-
-              <td>
-                Festival de Música
-              </td>
-
-              <td>
-                05/10/2026 10:30
-              </td>
-
-              <td>
-                2
-              </td>
-
-              <td>
-                $100.000
-              </td>
-
-              <td>
-                Solicitud normal
-              </td>
-
-              <td>
-
-                <span class="badge bg-warning text-dark">
-                  Reservada
-                </span>
-
-              </td>
-
-              <td>
-                <div class="d-flex gap-3 flex-wrap">
-
-                  <button class="btn btn-success btn-sm">
+            @for (r of reservas; track r.id) {
+              <tr>
+                <td>{{ r.codigo }}</td>
+                <td>{{ r.cliente }}</td>
+                <td>{{ r.evento }} ({{ r.codigoEvento }})</td>
+                <td>{{ r.entradas }}</td>
+                <td>{{ r.valorTotal | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
+                <td>
+                  <span class="badge"
+                    [class.text-bg-success]="r.estado === 'Confirmada'"
+                    [class.text-bg-primary]="r.estado === 'Reservada'"
+                    [class.text-bg-danger]="r.estado === 'Cancelada'"
+                    [class.text-bg-secondary]="r.estado === 'Asistida'">
+                    {{ r.estado }}
+                  </span>
+                </td>
+                <td>{{ r.fecha }}</td>
+                <td class="text-nowrap">
+                  <button
+                    class="btn btn-sm btn-outline-success me-1"
+                    (click)="cambiarEstado(r.id, 'Confirmada')">
                     Confirmar
                   </button>
-
-                  <button class="btn btn-danger btn-sm">
-                    Cancelar
+                  <button
+                    class="btn btn-sm btn-outline-danger"
+                    (click)="eliminarReserva(r.id, r.codigo)">
+                    Eliminar
                   </button>
-
-                </div>
-              </td>
-            </tr>
-
-
-            
-
-            <tr>
-
-              <td>
-                RES-002
-              </td>
-
-              <td>
-                María Gómez
-              </td>
-
-              <td>
-                Conferencia de Tecnología
-              </td>
-
-              <td>
-                05/10/2026 11:45
-              </td>
-
-              <td>
-                3
-              </td>
-
-              <td>
-                $240.000
-              </td>
-
-              <td>
-                Ninguna
-              </td>
-
-              <td>
-
-                <span class="badge bg-success">
-                  Confirmada
-                </span>
-
-              </td>
-
-              <td>
-
-                <button
-                  class="btn btn-outline-secondary btn-sm"
-                  disabled
-                >
-                  Gestionada
-                </button>
-
-              </td>
-
-            </tr>
-
-
-            
-
-            <tr>
-
-              <td>
-                RES-003
-              </td>
-
-              <td>
-                Carlos Rodríguez
-              </td>
-
-              <td>
-                Obra de Teatro
-              </td>
-
-              <td>
-                06/10/2026 14:20
-              </td>
-
-              <td>
-                1
-              </td>
-
-              <td>
-                $60.000
-              </td>
-
-              <td>
-                Solicitud cancelada
-              </td>
-
-              <td>
-
-                <span class="badge bg-danger">
-                  Cancelada
-                </span>
-
-              </td>
-
-              <td>
-
-                <button
-                  class="btn btn-outline-secondary btn-sm"
-                  disabled
-                >
-                  Gestionada
-                </button>
-
-              </td>
-
-            </tr>
-
+                </td>
+              </tr>
+            }
           </tbody>
-
         </table>
-
       </div>
 
+      @if (!loading && reservas.length === 0) {
+        <p class="text-center text-muted mb-0">No hay reservas</p>
+      }
     </div>
-
   </div>
 
 </div>

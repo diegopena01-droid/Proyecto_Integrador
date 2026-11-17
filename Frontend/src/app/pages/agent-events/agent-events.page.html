@@ -96,6 +96,15 @@
                   <strong>Precio base:</strong>
                   {{ evento.precioTexto }}
                 </p>
+
+
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-danger"
+                  (click)="eliminarEvento(evento.id, evento.codigo)">
+                  <i class="bi bi-trash me-1"></i>
+                  Eliminar
+              </button>
               </div>
             </div>
 
@@ -113,4 +122,4 @@
 
   </div>
 </div>
-```
+

@@ -16,6 +16,7 @@ export class ApiService {
     });
   }
 
+  
   login(email: string, password: string): Observable<any> {
     return this.http.post(`${API_URL}/auth/login`, { email, password });
   }
@@ -30,12 +31,9 @@ export class ApiService {
     return this.http.post(`${API_URL}/auth/register`, data);
   }
 
+  
   getEventos(): Observable<any> {
     return this.http.get(`${API_URL}/eventos`, { headers: this.headers() });
-  }
-
-  getEventoById(id: number): Observable<any> {
-    return this.http.get(`${API_URL}/eventos/${id}`, { headers: this.headers() });
   }
 
   getEventoByCodigo(codigo: string): Observable<any> {
@@ -62,6 +60,7 @@ export class ApiService {
     });
   }
 
+ 
   getMisReservas(): Observable<any> {
     return this.http.get(`${API_URL}/reservas/mis-reservas`, {
       headers: this.headers(),
@@ -96,6 +95,7 @@ export class ApiService {
     });
   }
 
+  
   getResumen(): Observable<any> {
     return this.http.get(`${API_URL}/reportes/resumen`, {
       headers: this.headers(),
@@ -108,7 +108,15 @@ export class ApiService {
     });
   }
 
-  getCiudades(): Observable<any> {
-    return this.http.get(`${API_URL}/localizacion/ciudades`);
+  getReservasPorEstado(): Observable<any> {
+    return this.http.get(`${API_URL}/reportes/reservas-por-estado`, {
+      headers: this.headers(),
+    });
+  }
+
+  getEventosPorEstado(): Observable<any> {
+    return this.http.get(`${API_URL}/reportes/eventos-por-estado`, {
+      headers: this.headers(),
+    });
   }
 }
