@@ -13,9 +13,9 @@ export class AppRoutes {
 
     apiRouter.use("/auth", AuthRoutes.routes);
     apiRouter.use("/localizacion", LocalizacionRoutes.routes);
-    apiRouter.use("/evento", EventoRoutes.routes);
-    apiRouter.use("/reserva", ReservaRoutes.routes);
-    apiRouter.use("/reporte", ReporteRoutes.routes);
+    apiRouter.use("/eventos", EventoRoutes.routes);
+    apiRouter.use("/reservas", ReservaRoutes.routes);
+    apiRouter.use("/reportes", ReporteRoutes.routes);
     apiRouter.use("/usuarios", UsuarioRoutes.routes);
 
     apiRouter.get("/health", (_req, res) => {

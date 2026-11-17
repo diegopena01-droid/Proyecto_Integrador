@@ -18,20 +18,26 @@ export class Server {
     this.routes = options.routes;
   }
 
-  async start(): Promise<void> {
-    await this.databaseConnect();
-    this.app.use(cors());
-    this.app.use(express.json());
-    this.app.use(express.static(this.publicPath));
-    this.app.use(this.routes);
-    this.app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-    this.app.use((_req, res) => {
-      res.sendFile(path.join(__dirname, `../../${this.publicPath}/index.html`));
-    });
-    this.app.listen(this.port, () => {
-      console.log(`Server Running on Port ${this.port}`);
-    });
-  }
+ async start(): Promise<void> {
+  await this.databaseConnect();
+
+  this.app.use(cors());
+  this.app.use(express.json());
+  this.app.use(express.urlencoded({ extended: true }));
+  this.app.use(this.routes);
+  this.app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+  this.app.use(express.static(this.publicPath));
+  this.app.use((req, res, next) => {
+    if (req.path.startsWith("/api")) {
+      return res.status(404).json({ error: `Ruta no encontrada: ${req.method} ${req.path}` });
+    }
+    return res.sendFile(path.join(__dirname, `../../${this.publicPath}/index.html`));
+  });
+
+  this.app.listen(this.port, () => {
+    console.log(`Server Running on Port ${this.port}`);
+  });
+}
 
   async databaseConnect() {
     try {
